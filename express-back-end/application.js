@@ -1,6 +1,8 @@
 require("dotenv").config();
 const Musixmatch = require("musixmatch");
 const Discogs = require("disconnect").Client;
+const genius = require("genius-lyrics-api");
+const discs = require("discogs");
 
 /* DISCOGS ************************************/
 
@@ -15,6 +17,42 @@ const discogArtist = function () {
     });
 };
 exports.discogArtist = discogArtist;
+
+/* GENIUS API *********************************/
+
+const getGeniusLyrics = function (artist, track) {
+  const options = {
+    apiKey: process.env.GENIUS_ACCESS_TOKEN,
+    title: track,
+    artist: artist,
+    optimizeQuery: true,
+  };
+
+  return genius.getLyrics(options).then((lyrics) => {
+    console.log(lyrics);
+    return lyrics;
+  });
+};
+exports.getGeniusLyrics = getGeniusLyrics;
+
+const getGeniusSong = function (artist, track) {
+  const options = {
+    apiKey: process.env.GENIUS_ACCESS_TOKEN,
+    title: track,
+    artist: artist,
+    optimizeQuery: true,
+  };
+
+  return genius.getSong(options).then((song) => {
+    console.log(`
+    ${song.id}
+    ${song.title}
+    ${song.url}
+    ${song.albumArt}
+    ${song.lyrics}`);
+    return song;
+  });
+};
 
 /* MUSIXMATCH *********************************/
 const msx = Musixmatch({

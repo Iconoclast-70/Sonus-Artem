@@ -1,12 +1,12 @@
 import React from "react";
-import "./styles/Lyrics.scss";
+import "./styles/Loader.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 
-export default function Lyrics(props) {
+export default function Status(props) {
   return (
     <Container>
-      <pre>{props.lyrics}</pre>
+      <img className="loader" alt="" />
     </Container>
   );
 }

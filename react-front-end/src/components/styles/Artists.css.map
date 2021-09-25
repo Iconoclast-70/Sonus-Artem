@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAsBA,AAAA,KAAK,CAAC;EACJ,KAAK,EAAE,KAAK;CACb",
+    "sources": [
+        "Artists.scss",
+        "_variables.scss",
+        "_functions.scss"
+    ],
+    "names": [],
+    "file": "Artists.css"
+}

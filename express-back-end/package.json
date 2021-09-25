@@ -9,8 +9,10 @@
     "go": "nodemon server.js"
   },
   "dependencies": {
+    "discogs": "^0.4.4",
     "disconnect": "^1.2.2",
     "dotenv": "^10.0.0",
+    "genius-lyrics-api": "^3.2.0",
     "knex": "^0.95.10",
     "musixmatch": "^0.1.6",
     "nodemon": "^1.18.7",

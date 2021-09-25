@@ -4,10 +4,31 @@ const mxapp = require("../application");
 const db = require("../db/database");
 
 // mxapp.discogArtist();
-// mxapp.getArtists("Flotsam & Jetsam");
-// mxapp.getAlbums(24838410);
-// mxapp.getAlbumTracks(10310480);
-// mxapp.getTrackLyrics(30203008);
+
+router.post("/api/tracks", (req, res) => {
+  return mxapp.getAlbumTracks(req.body.id).then((tracks) => {
+    console.log(tracks);
+    res.send(tracks);
+  });
+});
+
+// router.post("/api/lyrics", (req, res) => {
+//   console.log("TRACK ID ", req.body.id);
+//   return mxapp.getTrackLyrics(req.body.id).then((lyrics) => {
+//     console.log(lyrics);
+//     res.send(lyrics);
+//   });
+// });
+
+router.post("/api/lyrics", (req, res) => {
+  console.log("TRACK ID ", req.body.track, req.body.artist);
+  return mxapp
+    .getGeniusLyrics(req.body.track, req.body.artist)
+    .then((lyrics) => {
+      console.log(lyrics);
+      res.send(lyrics);
+    });
+});
 
 router.post("/api/albums", (req, res) => {
   return mxapp

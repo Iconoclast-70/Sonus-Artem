@@ -1,0 +1,8 @@
+@import "./variables";
+@import "./functions";
+
+pre {
+  @include flex(center, center);
+  background-color: black;
+  color: white;
+}

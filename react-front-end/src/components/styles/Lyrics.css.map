@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,GAAG,CAAC;EEFF,OAAO,EAAE,IAAI;EACb,eAAe,EFED,MAAM;EEDpB,WAAW,EFCW,MAAM;EAC5B,gBAAgB,EAAE,KAAK;EACvB,KAAK,EAAE,KAAK;CACb",
+    "sources": [
+        "Lyrics.scss",
+        "_variables.scss",
+        "_functions.scss"
+    ],
+    "names": [],
+    "file": "Lyrics.css"
+}
