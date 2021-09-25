@@ -3,8 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Container } from "react-bootstrap";
 //STYLES - SCSS
-import "./styles/Navigation.scss";
-import "./styles/Container.scss";
+import "./styles/App.scss";
 import Artists from "./Artists";
 
 export default function App(props) {

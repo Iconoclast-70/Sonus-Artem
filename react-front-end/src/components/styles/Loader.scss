@@ -1,10 +1,9 @@
 @import "./variables";
 @import "./functions";
 
-div {
+.loader-flex {
   @include flex(center, center);
   width: 100%;
-  background-color: $listBackground;
 }
 
 .loader {

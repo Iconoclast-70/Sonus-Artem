@@ -3,6 +3,6 @@
 
 pre {
   @include flex(center, center);
-  background-color: black;
+  background-color: $navBackground;
   color: white;
 }
