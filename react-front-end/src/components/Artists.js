@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Form, Button, Nav, NavDropdown } from "react-bootstrap";
 import Status from "./Status";
 import Lyrics from "./Lyrics";
 import "./styles/Artists.scss";
@@ -16,6 +16,8 @@ export default function Artists(props) {
     tracks: [],
     lyrics: "",
     albumArt: {},
+    currentAlbum: "",
+    currentTrack: "",
     mode: SHOW,
   });
 
@@ -23,6 +25,10 @@ export default function Artists(props) {
   const setAlbums = (albums) => setState({ ...state, albums });
   const setTracks = (tracks) => setState({ ...state, tracks });
   const setLyrics = (lyrics) => setState({ ...state, lyrics });
+  const setCurrentTrack = (currentTrack) =>
+    setState({ ...state, currentTrack });
+  // const setCurrentAlbum = (currentAlbum) =>
+  //   setState({ ...state, currentAlbum });
   const setMode = (mode) => setState({ ...state, mode });
 
   async function searchArtist() {
@@ -72,12 +78,12 @@ export default function Artists(props) {
   }
 
   async function trackLyrics(key) {
+    setCurrentTrack(key);
     setMode(LOADING);
     const lyrics = { track: key, artist: state.artist };
     return axios
       .post("/api/lyrics", lyrics)
       .then((response) => {
-        console.log(typeof response.data);
         setMode(SHOW);
         setLyrics(response.data);
       })
@@ -87,8 +93,8 @@ export default function Artists(props) {
   }
 
   return (
-    <Container>
-      <section>
+    <body className="artists-body">
+      <section className="form-align">
         <Form
           autoComplete="on"
           onSubmit={(event) => {
@@ -96,7 +102,6 @@ export default function Artists(props) {
           }}
         >
           <label>Enter Artist Name</label>
-          <br />
           <input
             type="text"
             id="artist"
@@ -105,47 +110,48 @@ export default function Artists(props) {
             }}
           />
           <br />
-          <br />
           <Button variant="primary" onClick={searchArtist} type="submit">
-            Submit
+            Search
           </Button>
+          <label>{state.currentTrack}</label>
         </Form>
-        {state.mode === SHOW && (
-          <Nav>
-            <NavDropdown
-              onSelect={albumTracks}
-              title="Albums"
-              id="basic-nav-dropdown"
-            >
-              {state.albums.map((album) => {
-                return (
-                  <NavDropdown.Item eventKey={album.albumID}>
-                    {album.albumName}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-            <NavDropdown
-              onSelect={trackLyrics}
-              title="Tracks"
-              id="basic-nav-dropdown"
-            >
-              {state.tracks.map((track) => {
-                return (
-                  <NavDropdown.Item eventKey={track.trackName}>
-                    {track.trackName}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
-          </Nav>
-        )}
+        <Nav>
+          <NavDropdown
+            onSelect={albumTracks}
+            title="Albums"
+            id="basic-nav-dropdown"
+          >
+            {state.albums.map((album) => {
+              return (
+                <NavDropdown.Item eventKey={album.albumID}>
+                  {album.albumName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+          <NavDropdown
+            onSelect={trackLyrics}
+            title="Tracks"
+            id="basic-nav-dropdown"
+          >
+            {state.tracks.map((track) => {
+              return (
+                <NavDropdown.Item eventKey={track.trackName}>
+                  {track.trackName}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
+        </Nav>
       </section>
-
-      <div>
+      <br />
+      <br />
+      <div className="lyric-border">
         {state.mode === LOADING && <Status message={state.mode} />}
-        {state.mode === SHOW && <Lyrics lyrics={state.lyrics} />}
+        {state.mode === SHOW && state.lyrics && (
+          <Lyrics lyrics={state.lyrics} />
+        )}
       </div>
-    </Container>
+    </body>
   );
 }

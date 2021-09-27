@@ -1,3 +1,44 @@
+.search-field {
+  padding: 1em;
+}
+
+.lyrics-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-image: url("../images/sonus-stone.jpeg");
+}
+
+.lyric-border {
+  border: 0.1rem outset white;
+  -webkit-box-shadow: 0 0 0 2rem grey;
+          box-shadow: 0 0 0 2rem grey;
+  border-radius: 2px;
+}
+
+.lyrics-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+}
+
 pre {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8,7 +49,8 @@ pre {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #263852;
-  color: white;
+  width: 100%;
+  background-image: url("../images/sonus-paper.jpeg");
+  color: black;
 }
 /*# sourceMappingURL=Lyrics.css.map */

@@ -12,14 +12,6 @@ router.post("/api/tracks", (req, res) => {
   });
 });
 
-// router.post("/api/lyrics", (req, res) => {
-//   console.log("TRACK ID ", req.body.id);
-//   return mxapp.getTrackLyrics(req.body.id).then((lyrics) => {
-//     console.log(lyrics);
-//     res.send(lyrics);
-//   });
-// });
-
 router.post("/api/lyrics", (req, res) => {
   console.log("TRACK ID ", req.body.track, req.body.artist);
   return mxapp
