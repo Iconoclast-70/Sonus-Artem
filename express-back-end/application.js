@@ -2,7 +2,36 @@ require("dotenv").config();
 const Musixmatch = require("musixmatch");
 const Discogs = require("disconnect").Client;
 const genius = require("genius-lyrics-api");
-const discs = require("discogs");
+const LastFM = require("last-fm");
+const lastfm = new LastFM(process.env.LAST_FM_API_KEY, {
+  userAgent: "Sonus Artem (http://localhost:3000/api/artists)",
+});
+
+/* LAST FM ************************************/
+
+const fmArtistSearch = function (artist) {
+  lastfm.artistSearch({ q: artist }, (err, data) => {
+    console.log("FM ARTIST SEARCH ", data);
+    return data;
+  });
+};
+exports.fmArtistSearch = fmArtistSearch;
+
+const fmAlbumSearch = function (album) {
+  lastfm.albumSearch({ q: album }, (err, data) => {
+    console.log("FM ALBUM SEARCH ", data);
+    return data;
+  });
+};
+exports.fmAlbumSearch = fmAlbumSearch;
+
+const fmTrackSearch = function (track) {
+  lastfm.trackSearch({ q: track }, (err, data) => {
+    console.log("FM TRACK SEARCH ", data);
+    return data;
+  });
+};
+exports.fmTrackSearch = fmTrackSearch;
 
 /* DISCOGS ************************************/
 

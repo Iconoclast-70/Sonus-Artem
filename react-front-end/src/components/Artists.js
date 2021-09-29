@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Button, Nav, NavDropdown } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Dropdown,
+  NavDropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import Status from "./Status";
 import Lyrics from "./Lyrics";
 import "./styles/Artists.scss";
@@ -23,12 +29,10 @@ export default function Artists(props) {
 
   const setArtist = (artist) => setState({ ...state, artist });
   const setAlbums = (albums) => setState({ ...state, albums });
-  const setTracks = (tracks) => setState({ ...state, tracks });
-  const setLyrics = (lyrics) => setState({ ...state, lyrics });
-  const setCurrentTrack = (currentTrack) =>
-    setState({ ...state, currentTrack });
-  // const setCurrentAlbum = (currentAlbum) =>
-  //   setState({ ...state, currentAlbum });
+  const setTracks = (tracks, currentAlbum) =>
+    setState({ ...state, tracks, currentAlbum });
+  const setLyrics = (lyrics, currentTrack) =>
+    setState({ ...state, lyrics, currentTrack });
   const setMode = (mode) => setState({ ...state, mode });
 
   async function searchArtist() {
@@ -37,6 +41,7 @@ export default function Artists(props) {
     return axios
       .post("/api/albums", artistData)
       .then((response) => {
+        console.log(response);
         const artistAlbumInfo = [];
         for (let i = 0; i < response.data.length; i++) {
           let info = {
@@ -63,14 +68,16 @@ export default function Artists(props) {
         const albumTrackInfo = [];
         console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
-          let info = {
-            trackID: response.data[i].track.track_id,
-            trackName: response.data[i].track.track_name,
-          };
-          albumTrackInfo.push(info);
+          if (response.data[i].track.has_lyrics) {
+            let info = {
+              trackID: response.data[i].track.track_id,
+              trackName: response.data[i].track.track_name,
+            };
+            albumTrackInfo.push(info);
+          }
         }
         setMode(SHOW);
-        setTracks(albumTrackInfo);
+        setTracks(albumTrackInfo, response.data[0].track.album_name);
       })
       .catch((error) => {
         console.log("ERROR", error);
@@ -78,14 +85,13 @@ export default function Artists(props) {
   }
 
   async function trackLyrics(key) {
-    setCurrentTrack(key);
     setMode(LOADING);
     const lyrics = { track: key, artist: state.artist };
     return axios
       .post("/api/lyrics", lyrics)
       .then((response) => {
         setMode(SHOW);
-        setLyrics(response.data);
+        setLyrics(response.data, key);
       })
       .catch((error) => {
         console.log("ERROR", error);
@@ -96,27 +102,34 @@ export default function Artists(props) {
     <body className="artists-body">
       <section className="form-align">
         <Form
+          className="form-layout"
           autoComplete="on"
           onSubmit={(event) => {
             event.preventDefault();
           }}
         >
-          <label>Enter Artist Name</label>
           <input
+            className="artist-element"
+            placeholder="Enter Artist Name"
             type="text"
             id="artist"
             onChange={(event) => {
               setArtist(event.target.value);
             }}
           />
-          <br />
-          <Button variant="primary" onClick={searchArtist} type="submit">
+          <Button
+            className="artist-element"
+            variant="dark"
+            onClick={searchArtist}
+            type="submit"
+          >
             Search
           </Button>
-          <label>{state.currentTrack}</label>
         </Form>
-        <Nav>
-          <NavDropdown
+        <Dropdown className="album-track-dropdowns">
+          <DropdownButton
+            className="artist-element"
+            variant="secondary"
             onSelect={albumTracks}
             title="Albums"
             id="basic-nav-dropdown"
@@ -128,10 +141,13 @@ export default function Artists(props) {
                 </NavDropdown.Item>
               );
             })}
-          </NavDropdown>
-          <NavDropdown
+          </DropdownButton>
+          <div> </div>
+          <DropdownButton
+            className="artist-element"
+            variant="secondary"
             onSelect={trackLyrics}
-            title="Tracks"
+            title="Tracks  "
             id="basic-nav-dropdown"
           >
             {state.tracks.map((track) => {
@@ -141,15 +157,20 @@ export default function Artists(props) {
                 </NavDropdown.Item>
               );
             })}
-          </NavDropdown>
-        </Nav>
+          </DropdownButton>
+        </Dropdown>
       </section>
       <br />
       <br />
       <div className="lyric-border">
         {state.mode === LOADING && <Status message={state.mode} />}
         {state.mode === SHOW && state.lyrics && (
-          <Lyrics lyrics={state.lyrics} />
+          <Lyrics
+            artist={state.artist}
+            lyrics={state.lyrics}
+            album={state.currentAlbum}
+            track={state.currentTrack}
+          />
         )}
       </div>
     </body>

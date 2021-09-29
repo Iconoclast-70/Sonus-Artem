@@ -3,8 +3,6 @@ const router = express.Router();
 const mxapp = require("../application");
 const db = require("../db/database");
 
-// mxapp.discogArtist();
-
 router.post("/api/tracks", (req, res) => {
   return mxapp.getAlbumTracks(req.body.id).then((tracks) => {
     console.log(tracks);
@@ -17,6 +15,7 @@ router.post("/api/lyrics", (req, res) => {
   return mxapp
     .getGeniusLyrics(req.body.track, req.body.artist)
     .then((lyrics) => {
+      mxapp.fmTrackSearch(req.body.track);
       console.log(lyrics);
       res.send(lyrics);
     });
@@ -26,6 +25,7 @@ router.post("/api/albums", (req, res) => {
   return mxapp
     .getArtist(req.body.name)
     .then((artist) => {
+      mxapp.fmArtistSearch(req.body.name);
       return artist[0].artist.artist_id;
     })
     .then((id) => {

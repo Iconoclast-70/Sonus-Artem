@@ -17,7 +17,6 @@ export default function App(props) {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link href="/api/artists">Artist Search</Nav.Link>
-                <Nav.Link href="#link">Link</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </div>

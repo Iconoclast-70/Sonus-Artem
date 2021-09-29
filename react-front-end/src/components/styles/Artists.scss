@@ -3,16 +3,26 @@
 
 .form-align {
   @include flex(center, center);
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.form-layout {
+  @include flex(center, center);
+  flex-direction: row;
 }
 
 .artists-body {
   background-image: url("../images/sonus-paper.jpeg");
 }
 
-.album-dropdown {
-  background-color: rgb(103, 103, 130);
-  border-width: 1em;
+.artist-element {
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.album-track-dropdowns {
+  @include flex(space-evenly, center);
+  flex-direction: row;
 }
 
 .lyric-border {
