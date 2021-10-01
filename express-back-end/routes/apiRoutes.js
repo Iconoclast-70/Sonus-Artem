@@ -11,14 +11,14 @@ router.post("/api/tracks", (req, res) => {
 });
 
 router.post("/api/lyrics", (req, res) => {
-  console.log("TRACK ID ", req.body.track, req.body.artist);
-  return mxapp
-    .getGeniusLyrics(req.body.track, req.body.artist)
-    .then((lyrics) => {
-      mxapp.fmTrackSearch(req.body.track);
-      console.log(lyrics);
-      res.send(lyrics);
-    });
+  console.log("ALBUM ARTIST ", req.body.album, req.body.artist);
+  Promise.all([
+    mxapp.getGeniusLyrics(req.body.track, req.body.artist),
+    mxapp.fmAlbumSearch(req.body.album, req.body.artist),
+  ]).then((values) => {
+    console.log("PROMISE ALL ", values);
+    res.send(values);
+  });
 });
 
 router.post("/api/albums", (req, res) => {

@@ -9,26 +9,35 @@ const lastfm = new LastFM(process.env.LAST_FM_API_KEY, {
 
 /* LAST FM ************************************/
 
-const fmArtistSearch = function (artist) {
+const fmArtistSearch = async function (artist) {
   lastfm.artistSearch({ q: artist }, (err, data) => {
-    console.log("FM ARTIST SEARCH ", data);
-    return data;
+    console.log("FM ARTIST SEARCH ", data.result);
+    return data.result;
   });
 };
 exports.fmArtistSearch = fmArtistSearch;
 
-const fmAlbumSearch = function (album) {
-  lastfm.albumSearch({ q: album }, (err, data) => {
-    console.log("FM ALBUM SEARCH ", data);
-    return data;
+const fmAlbumSearch = async function (album, artist) {
+  const albumPromise = new Promise(function (resolve, reject) {
+    lastfm.albumSearch({ q: album }, (err, data) => {
+      const artistAlbum = data.result.filter((aa) => {
+        return aa.artistName === artist && aa.images.length > 0;
+      });
+      if (artistAlbum) {
+        resolve(artistAlbum[0].images);
+      } else {
+        reject("Album not found");
+      }
+    });
   });
+  return albumPromise;
 };
 exports.fmAlbumSearch = fmAlbumSearch;
 
-const fmTrackSearch = function (track) {
+const fmTrackSearch = async function (track) {
   lastfm.trackSearch({ q: track }, (err, data) => {
-    console.log("FM TRACK SEARCH ", data);
-    return data;
+    console.log("FM TRACK SEARCH ", data.result);
+    return data.result;
   });
 };
 exports.fmTrackSearch = fmTrackSearch;
@@ -58,7 +67,6 @@ const getGeniusLyrics = function (artist, track) {
   };
 
   return genius.getLyrics(options).then((lyrics) => {
-    console.log(lyrics);
     return lyrics;
   });
 };

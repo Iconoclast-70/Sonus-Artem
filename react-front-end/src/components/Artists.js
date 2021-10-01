@@ -21,7 +21,7 @@ export default function Artists(props) {
     albums: [],
     tracks: [],
     lyrics: "",
-    albumArt: {},
+    albumArt: [],
     currentAlbum: "",
     currentTrack: "",
     mode: SHOW,
@@ -31,8 +31,8 @@ export default function Artists(props) {
   const setAlbums = (albums) => setState({ ...state, albums });
   const setTracks = (tracks, currentAlbum) =>
     setState({ ...state, tracks, currentAlbum });
-  const setLyrics = (lyrics, currentTrack) =>
-    setState({ ...state, lyrics, currentTrack });
+  const setLyrics = (lyrics, currentTrack, albumArt) =>
+    setState({ ...state, lyrics, currentTrack, albumArt });
   const setMode = (mode) => setState({ ...state, mode });
 
   async function searchArtist() {
@@ -86,12 +86,16 @@ export default function Artists(props) {
 
   async function trackLyrics(key) {
     setMode(LOADING);
-    const lyrics = { track: key, artist: state.artist };
+    const lyrics = {
+      track: key,
+      artist: state.artist,
+      album: state.currentAlbum,
+    };
     return axios
       .post("/api/lyrics", lyrics)
       .then((response) => {
         setMode(SHOW);
-        setLyrics(response.data, key);
+        setLyrics(response.data[0], key, response.data[1]);
       })
       .catch((error) => {
         console.log("ERROR", error);
@@ -147,7 +151,7 @@ export default function Artists(props) {
             className="artist-element"
             variant="secondary"
             onSelect={trackLyrics}
-            title="Tracks  "
+            title="Tracks"
             id="basic-nav-dropdown"
           >
             {state.tracks.map((track) => {
@@ -159,6 +163,9 @@ export default function Artists(props) {
             })}
           </DropdownButton>
         </Dropdown>
+        {state.albumArt[1] && (
+          <img className="artist-element" src={state.albumArt[1]} alt="" />
+        )}
       </section>
       <br />
       <br />
