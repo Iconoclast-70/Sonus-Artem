@@ -28,7 +28,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background-color: #263852;
   width: 100%;
   background-image: url("../images/sonus-paper-4.jpeg");
 }

@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Lyrics(props) {
   return (
-    <body className="lyrics-body">
-      <div className="lyric-border">
+    <body className="lyrics-body" id="lyrics">
+      <div>
         <h3 className="track">
           {props.track} from the album {props.album}
         </h3>

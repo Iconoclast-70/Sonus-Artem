@@ -35,8 +35,22 @@ export default function Artists(props) {
     setState({ ...state, lyrics, currentTrack, albumArt });
   const setMode = (mode) => setState({ ...state, mode });
 
+  function resetLyrics() {
+    setState({
+      ...state,
+      artist: "",
+      albums: [],
+      tracks: [],
+      lyrics: "",
+      albumArt: [],
+      currentAlbum: "",
+      currentTrack: "",
+      mode: LOADING,
+    });
+  }
+
   async function searchArtist() {
-    setMode(LOADING);
+    resetLyrics();
     const artistData = { name: state.artist };
     return axios
       .post("/api/albums", artistData)
@@ -60,7 +74,7 @@ export default function Artists(props) {
   }
 
   async function albumTracks(key) {
-    setMode(LOADING);
+    resetLyrics();
     const trackData = { id: key };
     return axios
       .post("/api/tracks", trackData)
@@ -85,7 +99,7 @@ export default function Artists(props) {
   }
 
   async function trackLyrics(key) {
-    setMode(LOADING);
+    resetLyrics();
     const lyrics = {
       track: key,
       artist: state.artist,
@@ -177,6 +191,7 @@ export default function Artists(props) {
             lyrics={state.lyrics}
             album={state.currentAlbum}
             track={state.currentTrack}
+            albumArt={state.albumArt}
           />
         )}
       </div>

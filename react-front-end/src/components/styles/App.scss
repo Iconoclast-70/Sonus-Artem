@@ -9,7 +9,6 @@
 .navigation-bar {
   @include flex(center, center);
   flex-direction: row;
-  background-color: $navBackground;
   width: 100%;
   background-image: url("../images/sonus-paper-4.jpeg");
 }
