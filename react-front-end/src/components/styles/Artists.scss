@@ -4,6 +4,18 @@
 .form-align {
   @include flex(center, center);
   flex-direction: row;
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 100;
+  background-image: url("../images/sonus-paper.jpeg");
+}
+
+.cassette {
+  background-image: url("../images/cassette-1.jpeg");
+  background-position: center;
+  background-size: 35%;
+  background-repeat: no-repeat;
 }
 
 .form-layout {
@@ -13,9 +25,20 @@
 
 .artists-body {
   background-image: url("../images/sonus-paper.jpeg");
+  height: 100%;
 }
 
 .artist-element {
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.album-dropdown {
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.track-dropdown {
   padding: 5px;
   margin-left: 2px;
 }
@@ -28,6 +51,8 @@
 .lyric-border {
   border: 0.2rem outset black;
   border-radius: 2px;
+  height: 100%;
+  width: 100%;
 }
 
 form {

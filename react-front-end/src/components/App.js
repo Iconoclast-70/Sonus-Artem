@@ -8,7 +8,7 @@ import Artists from "./Artists";
 
 export default function App(props) {
   return (
-    <body>
+    <body className="app-body">
       <Navbar variant="dark" className="navigation-bar" sticky="top">
         <div className="nav-align">
           <Navbar.Brand href="/">Sonus Artem</Navbar.Brand>
@@ -20,7 +20,6 @@ export default function App(props) {
           </Navbar.Collapse>
         </div>
       </Navbar>
-
       <BrowserRouter>
         <Switch>
           <Route path="/api/artists">

@@ -9,7 +9,7 @@ const lastfm = new LastFM(process.env.LAST_FM_API_KEY, {
 
 /* LAST FM ************************************/
 
-const fmArtistSearch = async function (artist) {
+const fmArtistSearch = function (artist) {
   lastfm.artistSearch({ q: artist }, (err, data) => {
     console.log("FM ARTIST SEARCH ", data.result);
     return data.result;
@@ -17,7 +17,7 @@ const fmArtistSearch = async function (artist) {
 };
 exports.fmArtistSearch = fmArtistSearch;
 
-const fmAlbumSearch = async function (album, artist) {
+const fmAlbumSearch = function (album, artist) {
   const albumPromise = new Promise(function (resolve, reject) {
     lastfm.albumSearch({ q: album }, (err, data) => {
       const artistAlbum = data.result.filter((aa) => {
@@ -34,7 +34,7 @@ const fmAlbumSearch = async function (album, artist) {
 };
 exports.fmAlbumSearch = fmAlbumSearch;
 
-const fmTrackSearch = async function (track) {
+const fmTrackSearch = function (track) {
   lastfm.trackSearch({ q: track }, (err, data) => {
     console.log("FM TRACK SEARCH ", data.result);
     return data.result;

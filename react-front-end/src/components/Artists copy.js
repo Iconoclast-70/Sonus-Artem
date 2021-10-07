@@ -27,8 +27,8 @@ export default function Artists(props) {
     mode: SHOW,
   });
 
-  const setArtist = (artist, lyrics, albumArt, albums, tracks) =>
-    setState({ ...state, artist, lyrics, albumArt, albums, tracks });
+  const setArtist = (artist, lyrics, albumArt) =>
+    setState({ ...state, artist, lyrics, albumArt });
   const setAlbums = (albums) => setState({ ...state, albums });
   const setTracks = (tracks, currentAlbum) =>
     setState({ ...state, tracks, currentAlbum });
@@ -36,7 +36,7 @@ export default function Artists(props) {
     setState({ ...state, lyrics, currentTrack, albumArt });
   const setMode = (mode) => setState({ ...state, mode });
 
-  function searchArtist() {
+  async function searchArtist() {
     setMode(LOADING);
     const artistData = { name: state.artist };
     return axios
@@ -60,7 +60,7 @@ export default function Artists(props) {
       });
   }
 
-  function albumTracks(key) {
+  async function albumTracks(key) {
     setMode(LOADING);
     const trackData = { id: key };
     return axios
@@ -85,7 +85,7 @@ export default function Artists(props) {
       });
   }
 
-  function trackLyrics(key) {
+  async function trackLyrics(key) {
     setMode(LOADING);
     const lyrics = {
       track: key,
@@ -119,7 +119,7 @@ export default function Artists(props) {
             type="text"
             id="artist"
             onChange={(event) => {
-              setArtist(event.target.value, "", [], [], []);
+              setArtist(event.target.value, "", []);
             }}
           />
           <Button
@@ -147,7 +147,7 @@ export default function Artists(props) {
               );
             })}
           </DropdownButton>
-
+          <div> </div>
           <DropdownButton
             className="artist-element"
             variant="secondary"
@@ -170,10 +170,7 @@ export default function Artists(props) {
       </section>
       <br />
       <br />
-      <br />
-      <br />
-
-      <section className="lyric-border">
+      <div className="lyric-border">
         {state.mode === LOADING && <Status message={state.mode} />}
         {state.mode === SHOW && state.lyrics && (
           <Lyrics
@@ -184,7 +181,7 @@ export default function Artists(props) {
             albumArt={state.albumArt}
           />
         )}
-      </section>
+      </div>
     </body>
   );
 }

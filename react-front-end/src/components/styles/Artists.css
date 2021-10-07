@@ -12,6 +12,16 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 40px;
+}
+
+.cassette {
+  background-image: url("../images/cassette-1.jpeg");
+  background-position: center;
+  background-size: 35%;
+  background-repeat: no-repeat;
 }
 
 .form-layout {
@@ -32,6 +42,7 @@
 
 .artists-body {
   background-image: url("../images/sonus-paper.jpeg");
+  height: 100%;
 }
 
 .artist-element {
