@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 //STYLES - SCSS
 import "./styles/App.scss";
 import Artists from "./Artists";
 
-export default function App(props) {
+export default function App() {
   return (
     <body className="app-body">
       <Navbar variant="dark" className="navigation-bar" sticky="top">
@@ -15,7 +15,9 @@ export default function App(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/api/artists">Artist Search</Nav.Link>
+              <Nav.Link className="nav-link" href="/api/artists">
+                Artist Search
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </div>

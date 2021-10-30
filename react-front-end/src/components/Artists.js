@@ -11,6 +11,8 @@ import {
 import Status from "./Status";
 import Lyrics from "./Lyrics";
 import "./styles/Artists.scss";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Stack";
 
 const LOADING = "LOADING";
 const SHOW = "SHOW";
@@ -27,8 +29,25 @@ export default function Artists(props) {
     mode: SHOW,
   });
 
-  const setArtist = (artist, lyrics, albumArt, albums, tracks) =>
-    setState({ ...state, artist, lyrics, albumArt, albums, tracks });
+  const setArtist = (
+    artist,
+    lyrics,
+    albumArt,
+    albums,
+    tracks,
+    currentAlbum,
+    currentTrack
+  ) =>
+    setState({
+      ...state,
+      artist,
+      lyrics,
+      albumArt,
+      albums,
+      tracks,
+      currentAlbum,
+      currentTrack,
+    });
   const setAlbums = (albums) => setState({ ...state, albums });
   const setTracks = (tracks, currentAlbum) =>
     setState({ ...state, tracks, currentAlbum });
@@ -104,8 +123,12 @@ export default function Artists(props) {
   }
 
   return (
-    <body className="artists-body">
-      <section className="form-align">
+    <Stack
+      direction="column"
+      divider={<Divider orientation="horizontal" flexItem />}
+      spacing={7}
+    >
+      <div className="form-align">
         <Form
           className="form-layout"
           autoComplete="on"
@@ -119,7 +142,7 @@ export default function Artists(props) {
             type="text"
             id="artist"
             onChange={(event) => {
-              setArtist(event.target.value, "", [], [], []);
+              setArtist(event.target.value, "", [], [], [], "", "");
             }}
           />
           <Button
@@ -147,7 +170,6 @@ export default function Artists(props) {
               );
             })}
           </DropdownButton>
-
           <DropdownButton
             className="artist-element"
             variant="secondary"
@@ -167,24 +189,28 @@ export default function Artists(props) {
         {state.albumArt[1] && (
           <img className="artist-element" src={state.albumArt[1]} alt="" />
         )}
-      </section>
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <section className="lyric-border">
-        {state.mode === LOADING && <Status message={state.mode} />}
-        {state.mode === SHOW && state.lyrics && (
-          <Lyrics
-            artist={state.artist}
-            lyrics={state.lyrics}
-            album={state.currentAlbum}
-            track={state.currentTrack}
-            albumArt={state.albumArt}
-          />
+        {state.currentTrack && (
+          <div className="album-track-title">
+            <label id="track-title" className="track-text">
+              {state.currentTrack}
+            </label>
+            <label id="album-title" classname="track-text">
+              From the album: {state.currentAlbum}
+            </label>
+          </div>
         )}
-      </section>
-    </body>
+      </div>
+
+      {state.mode === LOADING && <Status message={state.mode} />}
+      {state.mode === SHOW && state.lyrics && (
+        <Lyrics
+          artist={state.artist}
+          lyrics={state.lyrics}
+          album={state.currentAlbum}
+          track={state.currentTrack}
+          albumArt={state.albumArt}
+        />
+      )}
+    </Stack>
   );
 }

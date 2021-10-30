@@ -12,9 +12,11 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 40px;
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 100;
+  background-image: url("../images/sonus-paper.jpeg");
 }
 
 .cassette {
@@ -40,14 +42,25 @@
           flex-direction: row;
 }
 
-.artists-body {
-  background-image: url("../images/sonus-paper.jpeg");
-  height: 100%;
-}
-
 .artist-element {
   padding: 5px;
   margin-left: 2px;
+}
+
+.album-dropdown {
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.track-dropdown {
+  padding: 5px;
+  margin-left: 2px;
+}
+
+.track-text {
+  font-family: "fantasy", "papyrus";
+  font-size: 15px;
+  font-weight: 400;
 }
 
 .album-track-dropdowns {
@@ -69,6 +82,8 @@
 .lyric-border {
   border: 0.2rem outset black;
   border-radius: 2px;
+  height: 100%;
+  width: 100%;
 }
 
 form {

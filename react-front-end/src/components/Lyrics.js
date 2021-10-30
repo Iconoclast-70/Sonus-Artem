@@ -1,16 +1,24 @@
 import React from "react";
 import "./styles/Lyrics.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Stack";
 
 export default function Lyrics(props) {
   return (
-    <body className="lyrics-body" id="lyrics">
-      <div>
-        <h3 className="track">
-          {props.track} from the album {props.album}
-        </h3>
-        <pre>{props.lyrics}</pre>
-      </div>
-    </body>
+    <Stack
+      direction="column"
+      alignItems="center"
+      divider={<Divider orientation="horizontal" flexItem />}
+      spacing={1}
+    >
+      <img
+        id="album-art-left"
+        className="album-image"
+        src={props.albumArt[3]}
+        alt=""
+      />
+      <pre>{props.lyrics}</pre>
+    </Stack>
   );
 }

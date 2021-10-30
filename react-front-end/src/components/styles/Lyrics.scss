@@ -1,35 +1,51 @@
 @import "./variables";
 @import "./functions";
 
+.album-art {
+  display: flex;
+  flex-direction: row;
+}
+
 .search-field {
   padding: 1em;
+}
+
+.album-image {
+  border: 5px solid black;
+  box-shadow: 15px 10px 10px grey;
+  border-radius: 25px;
 }
 
 .lyrics-body {
   @include flex(center, center);
   flex-direction: column;
-  background-image: url("../images/sonus-stone.jpeg");
+  //background-image: url("../images/sonus-stone.jpeg");
+  background-color: white;
+  margin-top: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .track {
   @include flex(center, center);
-  background-image: url("../images/sonus-paper.jpeg");
+  background-image: url("../images/sonus-stone-5.jpeg");
   border: 1px solid #ccc;
-  border-radius: 25px;
+  border-radius: 50px;
   padding: 15px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 pre {
   @include flex(center, center);
-  width: 100%;
-  font-family: "fantasy", "papyrus";
-  font-size: 20px;
+
+  font-family: "serif", "times new roman";
+  font-size: 15px;
   font-weight: 600;
-  background-image: url("../images/sonus-paper.jpeg");
+  background-image: url("../images/sonus-stone-5.jpeg");
+  box-shadow: 15px 10px 10px grey;
   color: black;
   overflow: auto;
-  border: 1px solid #ccc;
+  border: 5px solid black;
   border-radius: 25px;
   padding: 15px;
   padding-bottom: 80px;

@@ -10,10 +10,20 @@
   flex-direction: row;
 }
 
+.nav-link {
+  font-weight: 600;
+  font-style: italic;
+  font-size: 18px;
+  color: white;
+}
+
 .navigation-bar {
   @include flex(center, center);
   flex-direction: row;
   width: 100%;
   height: 100%;
-  background-image: url("../images/sonus-paper-4.jpeg");
+  font-weight: 600;
+  font-style: italic;
+  color: white;
+  background-image: url("../images/sonus-stone.jpeg");
 }

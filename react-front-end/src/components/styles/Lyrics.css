@@ -17,6 +17,9 @@
       -ms-flex-direction: column;
           flex-direction: column;
   background-image: url("../images/sonus-stone.jpeg");
+  margin-top: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .track {
@@ -52,6 +55,7 @@ pre {
   font-weight: 600;
   background-image: url("../images/sonus-paper.jpeg");
   color: black;
+  overflow: auto;
   border: 1px solid #ccc;
   border-radius: 25px;
   padding: 15px;
