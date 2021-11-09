@@ -1,34 +1,59 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav } from "react-bootstrap";
 //STYLES - SCSS
 import "./styles/App.scss";
-import Artists from "./Artists";
+import ArtistLyrics from "./ArtistLyrics";
+import Login from "./Login";
+import Register from "./Register";
+import Splash from "./Splash";
+
+const lyricSong = "Lyric & Song Search";
+const songs = " Songs";
+const albums = " Albums";
 
 export default function App() {
+  const [token, setToken] = useState();
+
   return (
-    <body className="app-body">
-      <Navbar variant="dark" className="navigation-bar" sticky="top">
-        <div className="nav-align">
-          <Navbar.Brand href="/">Sonus Artem</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link className="nav-link" href="/api/artists">
-                Artist Search
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </div>
-      </Navbar>
-      <BrowserRouter>
+    <Router>
+      <div>
+        <Navbar variant="dark" className="nav-align" sticky="top">
+          <Nav className="nav-main">
+            <img className="home-icon" alt="" />
+            <Nav.Link className="sonus-font" href="/">
+              SONUS ARTEM
+            </Nav.Link>
+            <Nav.Link href="/api/artists/lyrics">{lyricSong}</Nav.Link>
+            <Nav.Link href="/api/artists/songs">{songs}</Nav.Link>
+            <Nav.Link href="/api/artists/albums">{albums}</Nav.Link>
+            <Nav.Link href="/api/artists/mixtapes">Mix Tape</Nav.Link>
+          </Nav>
+          <Nav className="nav-login-register">
+            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/register">Register</Nav.Link>
+          </Nav>
+        </Navbar>
+
         <Switch>
-          <Route path="/api/artists">
-            <Artists />
+          <Route exact path="/">
+            <Splash
+              splashImage="./images/library6.jpg"
+              className="sonus-splash"
+            />
+          </Route>
+          <Route path="/api/artists/lyrics">
+            <ArtistLyrics />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
         </Switch>
-      </BrowserRouter>
-    </body>
+      </div>
+    </Router>
   );
 }

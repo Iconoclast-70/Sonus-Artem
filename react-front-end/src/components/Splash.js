@@ -1,24 +1,24 @@
 import React from "react";
-import "./styles/Lyrics.scss";
+import "./styles/Splash.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Stack";
 
-export default function Lyrics(props) {
+export default function Splash(props) {
   return (
     <Stack
       direction="column"
       alignItems="center"
       divider={<Divider orientation="horizontal" flexItem />}
-      spacing={1}
+      spacing={0}
     >
       <img
-        id="album-art"
-        className="album-image"
-        src={props.albumArt[3]}
+        id="splash"
+        className="splash-image"
+        src={require(`${props.splashImage}`)}
         alt=""
       />
-      <pre>{props.lyrics}</pre>
     </Stack>
   );
 }

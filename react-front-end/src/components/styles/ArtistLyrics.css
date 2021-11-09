@@ -13,10 +13,15 @@
       -ms-flex-direction: row;
           flex-direction: row;
   position: fixed;
-  top: 50px;
   width: 100%;
   z-index: 100;
-  background-image: url("../images/sonus-paper.jpeg");
+  background-color: #1e2e43;
+  color: white;
+}
+
+.stack-border {
+  border-width: 5px;
+  border-color: white;
 }
 
 .cassette {
@@ -47,6 +52,22 @@
   margin-left: 2px;
 }
 
+.dropdown-menu a {
+  background-color: #1e2e43;
+  color: white;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.dropdown-menu a:hover {
+  background-color: black;
+  color: white;
+}
+
 .album-dropdown {
   padding: 5px;
   margin-left: 2px;
@@ -58,9 +79,8 @@
 }
 
 .track-text {
-  font-family: "fantasy", "papyrus";
-  font-size: 15px;
-  font-weight: 400;
+  color: white;
+  margin-left: 1em;
 }
 
 .album-track-dropdowns {
@@ -77,6 +97,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  background-color: #1e2e43;
 }
 
 .lyric-border {
@@ -84,6 +105,31 @@
   border-radius: 2px;
   height: 100%;
   width: 100%;
+}
+
+.album-track-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-family: "fantasy", "copperplate";
+  font-size: 20px;
+  font-weight: 200;
+  color: aqua;
+}
+
+.search-artist {
+  background-color: #1e2e43;
+}
+
+.search-image {
+  -webkit-box-shadow: 3px 3px 3px grey;
+          box-shadow: 3px 3px 3px grey;
+  padding: 5px;
+  margin-left: 2px;
 }
 
 form {
@@ -101,10 +147,10 @@ form {
       -ms-flex-align: center;
           align-items: center;
   padding: 2em;
-  color: #263852;
+  color: #1e2e43;
 }
 
 label {
   color: black;
 }
-/*# sourceMappingURL=Artists.css.map */
+/*# sourceMappingURL=ArtistLyrics.css.map */

@@ -39,10 +39,10 @@ router.post("/api/albums", (req, res) => {
     });
 });
 
-router.get("/login", (req, res) =>
-  res.send({
-    token: "TokenTest",
-  })
-);
+router.post("/register", (req,res) => {
+  res.send(db.register(req.body.username, req.body.password, req.body.email));
+});
+
+
 
 module.exports = router;

@@ -10,14 +10,16 @@ import {
 } from "react-bootstrap";
 import Status from "./Status";
 import Lyrics from "./Lyrics";
-import "./styles/Artists.scss";
+import Splash from "./Splash";
+import "./styles/ArtistLyrics.scss";
+import "./styles/Splash.scss";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Stack";
 
 const LOADING = "LOADING";
 const SHOW = "SHOW";
 
-export default function Artists(props) {
+export default function ArtistLyrics(props) {
   const [state, setState] = useState({
     artist: "",
     albums: [],
@@ -49,34 +51,43 @@ export default function Artists(props) {
       currentTrack,
     });
   const setAlbums = (albums) => setState({ ...state, albums });
-  const setTracks = (tracks, currentAlbum) =>
-    setState({ ...state, tracks, currentAlbum });
+  const setTracks = (tracks, currentAlbum, lyrics, albumArt, currentTrack) =>
+    setState({
+      ...state,
+      tracks,
+      currentAlbum,
+      lyrics,
+      albumArt,
+      currentTrack,
+    });
   const setLyrics = (lyrics, currentTrack, albumArt) =>
     setState({ ...state, lyrics, currentTrack, albumArt });
   const setMode = (mode) => setState({ ...state, mode });
 
   function searchArtist() {
-    setMode(LOADING);
-    const artistData = { name: state.artist };
-    return axios
-      .post("/api/albums", artistData)
-      .then((response) => {
-        console.log(response);
-        const artistAlbumInfo = [];
-        for (let i = 0; i < response.data.length; i++) {
-          let info = {
-            albumID: response.data[i].album.album_id,
-            albumName: response.data[i].album.album_name,
-            releaseDate: response.data[i].album.album_release_date,
-          };
-          artistAlbumInfo.push(info);
-        }
-        setMode(SHOW);
-        setAlbums(artistAlbumInfo);
-      })
-      .catch((error) => {
-        console.log("ERROR", error);
-      });
+    if (state.artist) {
+      setMode(LOADING);
+      const artistData = { name: state.artist };
+      return axios
+        .post("/api/albums", artistData)
+        .then((response) => {
+          console.log(response);
+          const artistAlbumInfo = [];
+          for (let i = 0; i < response.data.length; i++) {
+            let info = {
+              albumID: response.data[i].album.album_id,
+              albumName: response.data[i].album.album_name,
+              releaseDate: response.data[i].album.album_release_date,
+            };
+            artistAlbumInfo.push(info);
+          }
+          setMode(SHOW);
+          setAlbums(artistAlbumInfo);
+        })
+        .catch((error) => {
+          console.log("ERROR", error);
+        });
+    }
   }
 
   function albumTracks(key) {
@@ -97,7 +108,13 @@ export default function Artists(props) {
           }
         }
         setMode(SHOW);
-        setTracks(albumTrackInfo, response.data[0].track.album_name);
+        setTracks(
+          albumTrackInfo,
+          response.data[0].track.album_name,
+          "",
+          [],
+          ""
+        );
       })
       .catch((error) => {
         console.log("ERROR", error);
@@ -124,6 +141,7 @@ export default function Artists(props) {
 
   return (
     <Stack
+      className="stack-border"
       direction="column"
       divider={<Divider orientation="horizontal" flexItem />}
       spacing={7}
@@ -146,8 +164,8 @@ export default function Artists(props) {
             }}
           />
           <Button
-            className="artist-element"
             variant="dark"
+            className="search-artist"
             onClick={searchArtist}
             type="submit"
           >
@@ -155,52 +173,64 @@ export default function Artists(props) {
           </Button>
         </Form>
         <Dropdown className="album-track-dropdowns">
-          <DropdownButton
-            className="artist-element"
-            variant="secondary"
-            onSelect={albumTracks}
-            title="Albums"
-            id="basic-nav-dropdown"
-          >
-            {state.albums.map((album) => {
-              return (
-                <NavDropdown.Item eventKey={album.albumID}>
-                  {album.albumName}
-                </NavDropdown.Item>
-              );
-            })}
-          </DropdownButton>
-          <DropdownButton
-            className="artist-element"
-            variant="secondary"
-            onSelect={trackLyrics}
-            title="Tracks"
-            id="basic-nav-dropdown"
-          >
-            {state.tracks.map((track) => {
-              return (
-                <NavDropdown.Item eventKey={track.trackName}>
-                  {track.trackName}
-                </NavDropdown.Item>
-              );
-            })}
-          </DropdownButton>
+          {state.artist && (
+            <DropdownButton
+              className="artist-element"
+              variant="light"
+              onSelect={albumTracks}
+              title={
+                state.currentAlbum ? `Album: ${state.currentAlbum}` : "Albums"
+              }
+              id="basic-nav-dropdown"
+            >
+              {state.albums.map((album) => {
+                return (
+                  <NavDropdown.Item eventKey={album.albumID}>
+                    {album.albumName}
+                  </NavDropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          )}
+
+          {state.albums.length > 0 && (
+            <DropdownButton
+              className="artist-element"
+              variant="light"
+              onSelect={trackLyrics}
+              title={
+                state.currentTrack ? `Track: ${state.currentTrack}` : "Tracks"
+              }
+              id="basic-nav-dropdown"
+            >
+              {state.tracks.map((track) => {
+                return (
+                  <NavDropdown.Item eventKey={track.trackName}>
+                    {track.trackName}
+                  </NavDropdown.Item>
+                );
+              })}
+            </DropdownButton>
+          )}
         </Dropdown>
         {state.albumArt[1] && (
-          <img className="artist-element" src={state.albumArt[1]} alt="" />
+          <img className="search-image" src={state.albumArt[1]} alt="" />
         )}
-        {state.currentTrack && (
+        {/* {state.currentTrack && (
           <div className="album-track-title">
             <label id="track-title" className="track-text">
               {state.currentTrack}
             </label>
-            <label id="album-title" classname="track-text">
+            <label id="album-title" className="track-text">
               From the album: {state.currentAlbum}
             </label>
           </div>
-        )}
+        )} */}
       </div>
 
+      {state.artist === "" && (
+        <Splash splashImage="./images/library7.jpg" className="sonus-splash" />
+      )}
       {state.mode === LOADING && <Status message={state.mode} />}
       {state.mode === SHOW && state.lyrics && (
         <Lyrics

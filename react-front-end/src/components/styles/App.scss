@@ -1,13 +1,44 @@
 @import "./variables";
 @import "./functions";
 
-.app-body {
+body {
   height: 100%;
+  width: 100%;
+  color: white;
+  background-color: $navBackground;
+}
+
+.home-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -6px;
+  content: url("../images/sonus-artem.png");
+  height: 3em;
+}
+
+.sonus-font {
+  font-family: "fantasy", "chalkduster";
+  font-size: 50px;
+  font-weight: 200;
 }
 
 .nav-align {
-  @include flex(center, center);
+  @include flex(space-evenly, center);
+  padding: 2em;
   flex-direction: row;
+  color: white;
+  width: 100%;
+  background-color: $navBackground;
+}
+
+.nav-main {
+  @include flex(flex-start, center);
+}
+
+.nav-login-register {
+  @include flex(flex-end, center);
 }
 
 .nav-link {
@@ -15,15 +46,4 @@
   font-style: italic;
   font-size: 18px;
   color: white;
-}
-
-.navigation-bar {
-  @include flex(center, center);
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  font-weight: 600;
-  font-style: italic;
-  color: white;
-  background-image: url("../images/sonus-stone.jpeg");
 }

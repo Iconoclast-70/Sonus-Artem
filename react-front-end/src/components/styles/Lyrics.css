@@ -1,5 +1,26 @@
+.album-art {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.page-color {
+  background-color: #1e2e43;
+}
+
 .search-field {
   padding: 1em;
+}
+
+.album-image {
+  border: 1px solid black;
+  -webkit-box-shadow: 6px 4px 4px grey;
+          box-shadow: 6px 4px 4px grey;
+  border-radius: 25px;
 }
 
 .lyrics-body {
@@ -16,7 +37,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-image: url("../images/sonus-stone.jpeg");
+  background-color: #1e2e43;
   margin-top: 0;
   height: 100%;
   width: 100%;
@@ -32,11 +53,11 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-image: url("../images/sonus-paper.jpeg");
+  background-image: url("../images/sonus-stone-5.jpeg");
   border: 1px solid #ccc;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 15px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 pre {
@@ -49,14 +70,14 @@ pre {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
-  font-family: "fantasy", "papyrus";
-  font-size: 20px;
+  font-family: "serif", "times new roman";
+  font-size: 15px;
   font-weight: 600;
-  background-image: url("../images/sonus-paper.jpeg");
+  background-image: url("../images/sonus-stone-5.jpeg");
+  -webkit-box-shadow: 6px 4px 4px grey;
+          box-shadow: 6px 4px 4px grey;
   color: black;
   overflow: auto;
-  border: 1px solid #ccc;
   border-radius: 25px;
   padding: 15px;
   padding-bottom: 80px;

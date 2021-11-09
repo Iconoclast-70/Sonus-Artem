@@ -7,11 +7,20 @@
   position: fixed;
   width: 100%;
   z-index: 100;
-  background-color: white;
+  background-color: $navBackground;
+  color: white;
+  // border-color: white;
+  // border-width: 2px;
   // overflow: auto;
   // border: 10px solid black;
-  //border-radius: 30px;
-  //background-image: url("../images/sonus-stone-3.jpeg");
+  // border-radius: 30px;
+  // opacity: 0.5;
+  // background-image: url("../images/library4.jpg");
+}
+
+.stack-border {
+  border-width: 5px;
+  border-color: white;
 }
 
 .cassette {
@@ -31,6 +40,22 @@
   margin-left: 2px;
 }
 
+.dropdown-menu a {
+  background-color: $navBackground;
+  color: white;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.dropdown-menu a:hover {
+  background-color: black;
+  color: white;
+}
+
 .album-dropdown {
   padding: 5px;
   margin-left: 2px;
@@ -42,13 +67,13 @@
 }
 
 .track-text {
-  font-family: "fantasy", "papyrus";
-  font-size: 20px;
-  font-weight: 800;
+  color: white;
+  margin-left: 1em;
 }
 .album-track-dropdowns {
   @include flex(space-evenly, center);
   flex-direction: row;
+  background-color: $navBackground;
 }
 
 .lyric-border {
@@ -61,6 +86,20 @@
 .album-track-title {
   display: flex;
   flex-direction: column;
+  font-family: "fantasy", "copperplate";
+  font-size: 20px;
+  font-weight: 200;
+  color: aqua;
+}
+
+.search-artist {
+  background-color: $navBackground;
+}
+
+.search-image {
+  box-shadow: 3px 3px 3px grey;
+  padding: 5px;
+  margin-left: 2px;
 }
 
 form {
